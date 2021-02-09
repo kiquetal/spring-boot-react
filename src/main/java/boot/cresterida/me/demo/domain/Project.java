@@ -1,6 +1,9 @@
 package boot.cresterida.me.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -73,12 +76,20 @@ public class Project {
         this.updated_At = updated_At;
     }
 
+    @NotBlank(message = "Project cannot be null")
     private String projectName;
+    @NotBlank(message = "Project Identifier cannot be null")
+    @Column(updatable = false,unique = true)
     private String projectIdentifier;
+    @NotBlank(message = "Description cannot be null")
     private String description;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date startDate;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date endDate;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date created_At;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
 
 
