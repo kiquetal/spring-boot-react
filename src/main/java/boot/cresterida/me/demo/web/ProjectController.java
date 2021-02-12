@@ -3,6 +3,7 @@ package boot.cresterida.me.demo.web;
 import boot.cresterida.me.demo.domain.Project;
 import boot.cresterida.me.demo.exceptions.ProjectIdException;
 import boot.cresterida.me.demo.services.ProjectService;
+import boot.cresterida.me.demo.utils.GenericResponse;
 import boot.cresterida.me.demo.utils.UtilRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +24,10 @@ public class ProjectController {
     private ProjectService projectService;
 
     @PostMapping("")
-    public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult bindingResult)
-    {
+    public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors())
-        {
-          return new ResponseEntity<Map<String,String>>(UtilRequest.obtainError(bindingResult),HttpStatus.BAD_REQUEST);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<Map<String, String>>(UtilRequest.obtainError(bindingResult), HttpStatus.BAD_REQUEST);
         }
 
         Project project1 = projectService.saveOrUpdateProject(project);
@@ -37,10 +36,21 @@ public class ProjectController {
     }
 
     @GetMapping("/{projectId}")
-    public ResponseEntity<?> obtainProjectId(@PathVariable String projectId)
-    {
+    public ResponseEntity<?> obtainProjectId(@PathVariable String projectId) {
         Project project = projectService.findProjectByIdentifier(projectId);
-        return new ResponseEntity<>(project,HttpStatus.OK);
+        return new ResponseEntity<>(project, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllProjects() {
+        return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<?> deleteProject(@PathVariable  String projectId) {
+        projectService.deleteProject(projectId);
+        return new ResponseEntity<>(new GenericResponse("Deleted project"),HttpStatus.OK);
 
     }
 

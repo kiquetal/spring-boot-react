@@ -33,5 +33,16 @@ public class ProjectService {
         return project;
     }
 
+    public void deleteProject(String projectID)
+    {
+        Project project = this.findProjectByIdentifier(projectID);
+
+        projectRepository.delete(project);
+
+    }
+    public Iterable<Project> getAllProjects() {
+        return projectRepository.findAll();
+    }
+
 
 }
