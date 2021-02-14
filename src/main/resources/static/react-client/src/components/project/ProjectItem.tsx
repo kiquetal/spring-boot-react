@@ -2,7 +2,6 @@ import React from 'react';
 
 
 const ProjectItem:React.FunctionComponent<{}> =()=> {
-
     return(<div className="container">
         <div className="card card-body bg-light mb-3">
             <div className="row">
