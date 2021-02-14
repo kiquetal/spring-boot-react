@@ -41,3 +41,4 @@ class Header extends React.Component<any, any>
 
 
 }
+export default Header;
