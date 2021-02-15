@@ -1,17 +1,22 @@
 import React from 'react';
 import './App.css';
 
-import {  BrowserRouter, Route, Switch, RouteComponentProps  } from 'react-router-dom';
+import {  BrowserRouter as Router, Route, Switch, RouteComponentProps  } from 'react-router-dom';
 import DashBoard from "./components/Dashboard";
 import Header from "./layout/Header";
+import AddProject from "./components/project/AddProject";
 
 const App : React.FunctionComponent<{}> = ()=> {
     return (
+
         <div>
             <Header/>
-            <DashBoard name="dashboard"/>
-
-        </div>)
+            <Router>
+            <Route exact path="/" component={DashBoard}/>
+            <Route exact path="/addProject" component={AddProject}/>
+            </Router>
+        </div>
+)
 };
 
 

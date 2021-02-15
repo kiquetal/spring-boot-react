@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useEffect} from "react";
 import ProjectItem from "./project/ProjectItem";
+import CreateProjectButton from "./project/CreateProjectButton";
 
 
 export interface IProps
@@ -19,9 +20,7 @@ const DashBoard:React.FunctionComponent<IProps> = props => {
                 <div className="col-md-12">
                     <h1 className="display-4 text-center">Projects</h1>
                     <br/>
-                    <a href="ProjectForm.html" className="btn btn-lg btn-info">
-                        Create a Project
-                    </a>
+                    <CreateProjectButton/>
                     <br/>
                     <hr/>
                      <ProjectItem/>
