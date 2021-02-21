@@ -12,8 +12,11 @@ const App : React.FunctionComponent<{}> = ()=> {
         <div>
             <Header/>
             <Router>
+
             <Route exact path="/" component={DashBoard}/>
-            <Route exact path="/addProject" component={AddProject}/>
+            <Route exact path="/addProject">
+                <AddProject/>
+            </Route>
             </Router>
         </div>
 )

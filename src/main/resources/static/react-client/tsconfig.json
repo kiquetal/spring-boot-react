@@ -22,5 +22,6 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "paths":{"redux-thunk":["typings/redux-thunk"]}
 }
