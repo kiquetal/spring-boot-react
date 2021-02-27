@@ -1,8 +1,15 @@
 import {AppDispatch} from "../index";
+
+
+
+ import axios, {AxiosError} from "axios";
 export const ADD_PROJECT = "ADD_PROJECT";
 export const REMOVE_PROJECT = "REMOVE_PROJECT";
 export const LOADING_PROJECT = "LOADING_PROJECT";
 export const ERROR_PROJECT = "ERROR_PROJECT";
+
+const client = axios.create({baseURL:"http://localhost:8080"})
+
 export interface ProjectTypes {
      type:any,
 }
@@ -23,6 +30,7 @@ interface ErrorProjectType extends ProjectTypes {
     payload:string
 }
 export type ProjectActionTypes = LoadingType| AddProjectType | RemoveProjectType |  ErrorProjectType;
+
 export const loadingProject = ():ProjectActionTypes => {
     return {
         type: LOADING_PROJECT
@@ -42,15 +50,36 @@ export const projectAdded  =(projectId:string):ProjectActionTypes => {
         }
     }
 };
-export const addProject = (project:string) => async (dispatch:AppDispatch) => {
-    dispatch(loadingProject())
+
+export const getAllProjects = () => async (dispatch:AppDispatch) => {
+    dispatch(loadingProject)
+
     try {
-        setTimeout(()=>{
-            dispatch(projectAdded(project))
-        },8000)
+        const response = await client.get("/api/projects/all")
+
     }
     catch (e:any)
     {
-        dispatch(errorProject("error"));
+        console.log((e as AxiosError).message)
+    }
+
+}
+
+export const addProject = (project:string) => async (dispatch:AppDispatch) => {
+    dispatch(loadingProject())
+    try {
+
+
+        const response = await  client.get("/api/projects/all");
+        console.log(JSON.stringify(response));
+
+
+
+    }
+    catch (e:any)
+    {
+        const message=(e as AxiosError).message;
+        console.log(message);
+        dispatch(errorProject(message));
     }
 }

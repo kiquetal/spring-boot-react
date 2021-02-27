@@ -25,11 +25,9 @@ public class ProjectController {
 
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<Map<String, String>>(UtilRequest.obtainError(bindingResult), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(UtilRequest.obtainError(bindingResult), HttpStatus.BAD_REQUEST);
         }
-
         Project project1 = projectService.saveOrUpdateProject(project);
         return new ResponseEntity<>(project1, HttpStatus.CREATED);
 

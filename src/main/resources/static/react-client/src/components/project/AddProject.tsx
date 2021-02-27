@@ -14,13 +14,15 @@ import { connect, ConnectedProps } from 'react-redux';
 interface IProps   {
     some?:string,
     loading:boolean,
-    addProject1:Function
+    addProject1:Function,
+    error?:string
 };
 
 const mapStateToProps=(state:AllStatesStore) => {
     return {
         some : state.projects.project?.project_id,
-        loading: state.projects.loading
+        loading: state.projects.loading,
+        error:state.projects.error
     };
 }
 
@@ -69,7 +71,8 @@ class AddProject extends React.Component<IProps & RouteComponentProps<{}>, IStat
         e.preventDefault();
 
 
-        const { addProject1 } = this.props
+        const { addProject1, error:errorhelper } = this.props
+
 
         addProject1(this.state.projectName);
         const { error, value } = this.inputSchema.validate(this.state,{abortEarly:false});
@@ -81,12 +84,12 @@ class AddProject extends React.Component<IProps & RouteComponentProps<{}>, IStat
         console.log(JSON.stringify({...this.state}));
     }
     render() {
-       const { some, loading } = this.props;
+       const { some, loading,error:errorhelper } = this.props;
 
         return(
             <div className="register">
                 <div className="container">
-                 <span>  El valor es  "{some}" `${loading.toString()}`</span>
+                 <span>  El valor es  "{some}" `${loading.toString()}` {errorhelper}</span>
                 </div>
                 <div className="container">
                     <div className="row">
@@ -95,7 +98,8 @@ class AddProject extends React.Component<IProps & RouteComponentProps<{}>, IStat
                             <hr/>
                             <form id="form1" onSubmit={this.onSubmitForm}>
                                 <div className="form-group">
-                                    <input type="text" className="form-control form-control-lg "
+                                    <input type="text" className="form-control form-control-lg"
+
                                            name="projectName"
                                            onChange={event => this.setState({...this.state,
                                                 'projectName':event.target.value }
