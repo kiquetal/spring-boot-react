@@ -7,6 +7,7 @@ import {AllStatesStore, AppDispatch} from "../store";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import {getAllProjects} from "../store/projects/actionCreators";
+import {ProjectModel} from "../models";
 
 
 export interface IProps
@@ -16,7 +17,7 @@ export interface IProps
 
 const DashBoard:React.FunctionComponent<IProps & RouteComponentProps> = props => {
 
-    const allProjects:unknown  = useSelector<AllStatesStore>(state => state.projects.allProjects);
+    const allProjects:ProjectModel[]  = useSelector((state:AllStatesStore) => state.projects.allProjects );
 
     const loading = useSelector<AllStatesStore>(state => state.projects.loading);
     const  dispatch  = useDispatch<AppDispatch>();
@@ -32,7 +33,9 @@ const DashBoard:React.FunctionComponent<IProps & RouteComponentProps> = props =>
                     {
                         loading ? <span>cargando</span>:<div>cargado</div>
                     }
-
+                    {
+                   allProjects && allProjects.map(value => (<div key={value.project_id}>{value.projectName}</div>))
+                    }
                     <h1 className="display-4 text-center">Projects</h1>
                     <br/>
                     <CreateProjectButton/>

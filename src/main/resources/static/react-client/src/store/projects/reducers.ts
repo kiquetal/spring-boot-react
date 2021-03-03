@@ -14,7 +14,8 @@ export const initialType: ProjectState = {
     project:{
         project_id:"",
         description:"",
-        project_identifier:""
+        project_identifier:"",
+        projectName:""
     },
     allProjects:[]
 }
