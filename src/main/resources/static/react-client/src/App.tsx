@@ -5,8 +5,12 @@ import {  BrowserRouter as Router, Route, Switch, RouteComponentProps  } from 'r
 import DashBoard from "./components/Dashboard";
 import Header from "./layout/Header";
 import AddProject from "./components/project/AddProject";
+import {useDispatch, useStore} from "react-redux";
+import {AppDispatch} from "./store";
 
 const App : React.FunctionComponent<{}> = ()=> {
+
+
     return (
 
         <div>

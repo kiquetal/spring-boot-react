@@ -1,12 +1,12 @@
-import {ADD_PROJECT,  ERROR_PROJECT, LOADING_PROJECT, ProjectActionTypes} from "./actionCreators";
+import {ADD_PROJECT, ERROR_PROJECT, GET_ALL_PROJECTS, LOADING_PROJECT, ProjectActionTypes} from "./actionCreators";
 import {ProjectModel} from "../../models";
-import {HeapProfiler} from "inspector";
 import {Reducer} from "redux";
-import { ThunkDispatch } from "redux-thunk";
+
 export interface ProjectState  {
     loading:boolean,
     error?:string,
-    project?: ProjectModel
+    project?: ProjectModel,
+    allProjects:ProjectModel[]
 }
 export const initialType: ProjectState = {
     loading:false,
@@ -15,7 +15,8 @@ export const initialType: ProjectState = {
         project_id:"",
         description:"",
         project_identifier:""
-    }
+    },
+    allProjects:[]
 }
 export const reducerProject:Reducer = (state=initialType,action:ProjectActionTypes):ProjectState => {
     switch (action.type){
@@ -35,6 +36,10 @@ export const reducerProject:Reducer = (state=initialType,action:ProjectActionTyp
         }
         case ERROR_PROJECT: {
             return {...state,error:action.payload,loading:false}
+        }
+        case GET_ALL_PROJECTS:  {
+            return  { ...state,
+                        allProjects:action.payload,loading:false}
         }
         default:
             return state;
